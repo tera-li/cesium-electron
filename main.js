@@ -1,18 +1,19 @@
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 
 const createWindow = () => {
   // 创建和管理应用窗口
   const win = new BrowserWindow({
     width: 800,
-    height: 300,
+    height: 600,
     // 网页功能设置
     webPreferences: {
       // 在页面运行其他脚本之前 预加载的脚本
       preload: path.join(__dirname, "/public/preload.js"),
     },
   });
-
+  // 主进程监听事件，并返回值
+  ipcMain.handle("ping", () => "pong");
   win.loadFile("public/index.html");
 };
 
