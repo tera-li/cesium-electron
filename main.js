@@ -12,14 +12,15 @@ const createWindow = () => {
       preload: path.join(__dirname, "/public/preload.js"),
     },
   });
+  console.log();
   // 主进程监听事件，并返回值
-  ipcMain.handle("ping", () => "pong");
   win.loadFile("public/index.html");
 };
 
 // app 为整个应用的事件生命周期，当准备好后，触发promise
 app.whenReady().then(() => {
   createWindow();
+  ipcMain.handle("ping", () => "pong");
 
   app.on("activate", () => {
     console.log(BrowserWindow.getAllWindows().length);
