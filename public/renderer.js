@@ -13,3 +13,8 @@ const func = async () => {
 };
 
 func();
+
+document.getElementById("info").onclick = () => {
+  console.log(window.setApi);
+  window.setApi.setPing("title");
+};
