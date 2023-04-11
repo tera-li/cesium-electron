@@ -1,10 +1,10 @@
-const { app, BrowserWindow, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, Menu } = require("electron");
 const path = require("path");
 
 const createWindow = () => {
   // 创建和管理应用窗口
   const win = new BrowserWindow({
-    width: 800,
+    width: 1000,
     height: 600,
     // 网页功能设置
     webPreferences: {
@@ -13,10 +13,29 @@ const createWindow = () => {
     },
   });
   // return EventEmitter
-  // const contents = win.webContents;
+  console.log(win.webContents.send);
+
+  const menu = Menu.buildFromTemplate([
+    {
+      label: "123",
+      submenu: [
+        {
+          click: () => win.webContents.send("update-counter", 1),
+          label: "Increment",
+        },
+        {
+          click: () => win.webContents.send("update-counter", -1),
+          label: "Decrement",
+        },
+      ],
+    },
+  ]);
+  Menu.setApplicationMenu(menu);
 
   // 主进程监听事件，并返回值
   win.loadFile("public/index.html");
+
+  win.webContents.openDevTools();
 };
 
 // app 为整个应用的事件生命周期，当准备好后，触发promise
@@ -29,6 +48,10 @@ app.whenReady().then(() => {
   // 来自渲染器进程 监听 send 事件
   ipcMain.on("set-ping", () => {
     console.log(123456);
+  });
+
+  ipcMain.on("counter-value", (_event, value) => {
+    console.log(value); // will print value to Node console
   });
 
   app.on("activate", () => {
