@@ -13,5 +13,6 @@ contextBridge.exposeInMainWorld("versions", {
 // 创建上下文桥梁，暴露字段在window上
 contextBridge.exposeInMainWorld("setApi", {
   setPing: (title) => ipcRenderer.send("set-ping", title),
+  // 来自主进程 监听 send 事件
   handleCounter: (callback) => ipcRenderer.on("update-counter", callback),
 });

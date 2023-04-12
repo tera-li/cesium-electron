@@ -17,6 +17,7 @@ const func = async () => {
     const oldValue = Number(counter.innerText);
     const newValue = oldValue + value;
     counter.innerText = newValue;
+    // 回复主进程消息
     event.sender.send("counter-value", newValue);
   });
 };
@@ -26,4 +27,11 @@ func();
 document.getElementById("info").onclick = () => {
   console.log(window.setApi);
   window.setApi.setPing("title");
+
+  // 从渲染进程打开窗口
+  // window.open(
+  //   "https://github.com",
+  //   "_blank",
+  //   "top=100,left=200,frame=false,nodeIntegration=no"
+  // );
 };
