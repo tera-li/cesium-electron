@@ -104,10 +104,10 @@ const handleMenu = (win) => {
 
 // 创建和控制视图
 const handleView = (win) => {
-  const view = new BrowserView();
-  win.setBrowserView(view);
-  view.setBounds({ x: 0, y: 300, width: 1000, height: 300 }); // 设置界限
-  view.webContents.loadURL("https://electronjs.org");
+  // const view = new BrowserView();
+  // win.setBrowserView(view);
+  // view.setBounds({ x: 0, y: 300, width: 1000, height: 300 }); // 设置界限
+  // view.webContents.loadURL("https://electronjs.org");
   win.loadFile("public/index.html");
 };
 
